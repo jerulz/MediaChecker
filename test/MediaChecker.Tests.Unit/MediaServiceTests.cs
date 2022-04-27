@@ -31,8 +31,8 @@ public class MediaServiceTests
             new FileInfo(Path.GetTempFileName())
         };
         
-        _fileService.GetAllFilesAsync().Returns(expectedFiles);
-        
+        _fileService.GetAllFilesAsync().Returns(new Task<IEnumerable<FileInfo>>(() => expectedFiles));
+
         // Act
         var medias = await _sut.GetAllMediasAsync();
     
@@ -46,7 +46,7 @@ public class MediaServiceTests
     public async Task GetAllMediasAsync_ShouldReturnEmptyList_WhenNoFilesExist()
     {
         // Arrange
-        _fileService.GetAllFilesAsync().Returns(Task.FromResult(Enumerable.Empty<FileInfo>()));
+        _fileService.GetAllFilesAsync().Returns(new Task<IEnumerable<FileInfo>>(Enumerable.Empty<FileInfo>));
         
         // Act
         var medias = await _sut.GetAllMediasAsync();
@@ -66,7 +66,7 @@ public class MediaServiceTests
             new FileInfo(Path.GetTempFileName())
         };
         
-        _fileService.GetAllFilesAsync().Returns(expectedFiles);
+        _fileService.GetAllFilesAsync().Returns(new Task<IEnumerable<FileInfo>>(() => expectedFiles));
         
         // Act
         var medias = await _sut.GetAllMediasAsync();
