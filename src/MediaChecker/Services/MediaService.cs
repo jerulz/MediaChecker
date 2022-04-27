@@ -3,20 +3,20 @@ using MediaChecker.Models;
 
 namespace MediaChecker.Services;
 
-public class MediaServices : IMediaServices
+public class MediaService : IMediaServices
 {
-    private readonly IFileServices _fileServices;
-    private readonly ILogger<MediaServices> _logger;
+    private readonly IFileService _fileService;
+    private readonly ILogger<MediaService> _logger;
 
-    public MediaServices(ILogger<MediaServices> logger, IFileServices fileServices)
+    public MediaService(ILogger<MediaService> logger, IFileService fileService)
     {
         _logger = logger;
-        _fileServices = fileServices;
+        _fileService = fileService;
     }
 
-    public Task<IEnumerable<Media>> GetAllMedias()
+    public Task<IEnumerable<Media>> GetAllMediasAsync()
     {
-        var files = _fileServices.GetAllFiles();
+        var files = _fileService.GetAllFilesAsync();
         var task = files.ContinueWith(t =>
         {
             return t.Result.Select(file => new Media
@@ -30,9 +30,9 @@ public class MediaServices : IMediaServices
         return task;
     }
 
-    public Task<IEnumerable<Movie>> GetAllMovies()
+    public Task<IEnumerable<Movie>> GetAllMoviesAsync()
     {
-        var files = _fileServices.GetMovieFiles();
+        var files = _fileService.GetMovieFilesAsync();
         var task = files.ContinueWith(t =>
         {
             return t.Result.Select(file => new Movie
@@ -46,9 +46,9 @@ public class MediaServices : IMediaServices
         return task;
     }
 
-    public Task<IEnumerable<Audio>> GetAllAudios()
+    public Task<IEnumerable<Audio>> GetAllAudiosAsync()
     {
-        var files = _fileServices.GetAudioFiles();
+        var files = _fileService.GetAudioFilesAsync();
         var task = files.ContinueWith(t =>
         {
             return t.Result.Select(file => new Audio
@@ -62,9 +62,9 @@ public class MediaServices : IMediaServices
         return task;
     }
 
-    public Task<IEnumerable<Image>> GetAllImages()
+    public Task<IEnumerable<Image>> GetAllImagesAsync()
     {
-        var files = _fileServices.GetImageFiles();
+        var files = _fileService.GetImageFilesAsync();
         var task = files.ContinueWith(t =>
         {
             return t.Result.Select(file => new Image
@@ -78,9 +78,9 @@ public class MediaServices : IMediaServices
         return task;
     }
 
-    public Task<IEnumerable<Media>> GetMediaFromName(string name)
+    public Task<IEnumerable<Media>> GetMediaFromNameAsync(string name)
     {
-        var files = _fileServices.GetAllFiles();
+        var files = _fileService.GetAllFilesAsync();
         var task = files.ContinueWith(t =>
         {
             return t.Result.Where(f => f.Name.ToLowerInvariant().Contains(name.ToLowerInvariant())).Select(file =>
@@ -95,9 +95,9 @@ public class MediaServices : IMediaServices
         return task;
     }
 
-    public Task<IEnumerable<Movie>> GetMovieFromName(string name)
+    public Task<IEnumerable<Movie>> GetMovieFromNameAsync(string name)
     {
-        var files = _fileServices.GetMovieFiles();
+        var files = _fileService.GetMovieFilesAsync();
         var task = files.ContinueWith(t =>
         {
             return t.Result.Where(f => f.Name.ToLowerInvariant().Contains(name.ToLowerInvariant())).Select(file =>
@@ -112,9 +112,9 @@ public class MediaServices : IMediaServices
         return task;
     }
 
-    public Task<IEnumerable<Audio>> GetAudioFromName(string name)
+    public Task<IEnumerable<Audio>> GetAudioFromNameAsync(string name)
     {
-        var files = _fileServices.GetAudioFiles();
+        var files = _fileService.GetAudioFilesAsync();
         var task = files.ContinueWith(t =>
         {
             return t.Result.Where(f => f.Name.ToLowerInvariant().Contains(name.ToLowerInvariant())).Select(file =>
@@ -129,9 +129,9 @@ public class MediaServices : IMediaServices
         return task;
     }
 
-    public Task<IEnumerable<Image>> GetImageFromName(string name)
+    public Task<IEnumerable<Image>> GetImageFromNameAsync(string name)
     {
-        var files = _fileServices.GetImageFiles();
+        var files = _fileService.GetImageFilesAsync();
         var task = files.ContinueWith(t =>
         {
             return t.Result.Where(f => f.Name.ToLowerInvariant().Contains(name.ToLowerInvariant())).Select(file =>

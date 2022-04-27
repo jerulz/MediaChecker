@@ -2,18 +2,18 @@
 
 namespace MediaChecker.Services;
 
-public class FileServices : IFileServices
+public class FileService : IFileService
 {
-    private readonly ILogger<FileServices> _logger;
+    private readonly ILogger<FileService> _logger;
     private readonly IConfiguration _configuration;
 
-    public FileServices(ILogger<FileServices> logger, IConfiguration configuration)
+    public FileService(ILogger<FileService> logger, IConfiguration configuration)
     {
         _logger = logger;
         _configuration = configuration;
     }
 
-    public Task<IEnumerable<FileInfo>> GetAllFiles()
+    public Task<IEnumerable<FileInfo>> GetAllFilesAsync()
     {
         string path = _configuration["MediaDirectory:Path"];
         if (String.IsNullOrEmpty(path))
@@ -22,7 +22,6 @@ public class FileServices : IFileServices
         }
         return new Task<IEnumerable<FileInfo>>(() =>
         {
-            
                 DirectoryInfo rootDirectory = new DirectoryInfo(path);
                 IEnumerable<DirectoryInfo> directories = rootDirectory.GetDirectories();
                 List<FileInfo> files = new List<FileInfo>();
@@ -39,19 +38,19 @@ public class FileServices : IFileServices
         });
     }
 
-    public Task<IEnumerable<FileInfo>> GetMovieFiles()
+    public Task<IEnumerable<FileInfo>> GetMovieFilesAsync()
     {
         string path = _configuration["MovieDirectory:Path"];
         return GetFilesFromPath(path);
     }
 
-    public Task<IEnumerable<FileInfo>> GetAudioFiles()
+    public Task<IEnumerable<FileInfo>> GetAudioFilesAsync()
     {
         string path = _configuration["AudioDirectory:Path"];
         return GetFilesFromPath(path);
     }
 
-    public Task<IEnumerable<FileInfo>> GetImageFiles()
+    public Task<IEnumerable<FileInfo>> GetImageFilesAsync()
     {
         string path = _configuration["ImageDirectory:Path"];
         return GetFilesFromPath(path);

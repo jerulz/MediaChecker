@@ -9,10 +9,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<IMediaServices, MediaServices>();
-builder.Services.AddScoped<IFileServices, FileServices>();
-
-
+builder.Services.AddSingleton<IMediaServices, MediaService>();
+builder.Services.AddSingleton<IFileService, FileService>();
 
 var app = builder.Build();
 
