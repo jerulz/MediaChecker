@@ -28,7 +28,7 @@ public class MediaController : ControllerBase
     {
         try
         {
-            return Ok(await _mediaServices.GetAllMedias());
+            return Ok(await _mediaServices.GetAllMediasAsync());
         }
         catch (ArgumentException e)
         {
@@ -54,7 +54,7 @@ public class MediaController : ControllerBase
     {
         try
         {
-            return Ok(await _mediaServices.GetAllMovies());
+            return Ok(await _mediaServices.GetAllMoviesAsync());
         }
         catch (ArgumentException e)
         {
@@ -80,7 +80,7 @@ public class MediaController : ControllerBase
     {
         try
         {
-            return Ok(await _mediaServices.GetAllAudios());
+            return Ok(await _mediaServices.GetAllAudiosAsync());
         }
         catch (ArgumentException e)
         {
@@ -106,7 +106,7 @@ public class MediaController : ControllerBase
     {
         try
         {
-            return Ok(await _mediaServices.GetAllImages());
+            return Ok(await _mediaServices.GetAllImagesAsync());
         }
         catch (ArgumentException e)
         {
@@ -133,7 +133,7 @@ public class MediaController : ControllerBase
     {
         try
         {
-            return Ok(await _mediaServices.GetMediaFromName(name));
+            return Ok(await _mediaServices.GetMediaFromNameAsync(name));
         }
         catch (ArgumentException e)
         {
@@ -160,7 +160,7 @@ public class MediaController : ControllerBase
     {
         try
         {
-            return Ok(await _mediaServices.GetMovieFromName(name));
+            return Ok(await _mediaServices.GetMovieFromNameAsync(name));
         }
         catch (ArgumentException e)
         {
@@ -187,7 +187,7 @@ public class MediaController : ControllerBase
     {
         try
         {
-            return Ok(await _mediaServices.GetAudioFromName(name));
+            return Ok(await _mediaServices.GetAudioFromNameAsync(name));
         }
         catch (ArgumentException e)
         {
@@ -214,7 +214,7 @@ public class MediaController : ControllerBase
     {
         try
         {
-            return Ok(await _mediaServices.GetImageFromName(name));
+            return Ok(await _mediaServices.GetImageFromNameAsync(name));
         }
         catch (ArgumentException e)
         {
