@@ -1,5 +1,6 @@
-﻿using MediaChecker.Interfaces;
-using MediaChecker.Models;
+﻿using System.Text.RegularExpressions;
+using MediaChecker.Interfaces;
+using MediaChecker.Models.Media;
 
 namespace MediaChecker.Services;
 
@@ -7,13 +8,16 @@ public class MediaService : IMediaServices
 {
     private readonly IFileService _fileService;
     private readonly ILogger<MediaService> _logger;
+    private readonly Regex _regex;
 
     public MediaService(ILogger<MediaService> logger, IFileService fileService)
     {
         _logger = logger;
         _fileService = fileService;
+        _regex = new Regex(@"^[1-9]\d{3,}$");
     }
-
+    
+    // TODO modifier la regex
     public Task<IEnumerable<Media>> GetAllMediasAsync()
     {
         var files = _fileService.GetAllFilesAsync();
@@ -22,59 +26,12 @@ public class MediaService : IMediaServices
             return t.Result.Select(file => new Media
             {
                 Name = file.Name,
-                Size = file.Length / 1000 / 1000
+                Size = file.Length / 1000 / 1000,
+                Year = _regex.Match(file.Name).Value
             });
         });
         files.Start();
-        _logger.LogInformation($"Media retrieved: {files.Result.Count().ToString()}");
-        return task;
-    }
-
-    public Task<IEnumerable<Movie>> GetAllMoviesAsync()
-    {
-        var files = _fileService.GetMovieFilesAsync();
-        var task = files.ContinueWith(t =>
-        {
-            return t.Result.Select(file => new Movie
-            {
-                Name = file.Name,
-                Size = file.Length / 1000 / 1000
-            });
-        });
-        files.Start();
-        _logger.LogInformation($"Movies retrieved: {files.Result.Count().ToString()}");
-        return task;
-    }
-
-    public Task<IEnumerable<Audio>> GetAllAudiosAsync()
-    {
-        var files = _fileService.GetAudioFilesAsync();
-        var task = files.ContinueWith(t =>
-        {
-            return t.Result.Select(file => new Audio
-            {
-                Name = file.Name,
-                Size = file.Length / 1000 / 1000
-            });
-        });
-        files.Start();
-        _logger.LogInformation($"Audios retrieved: {files.Result.Count().ToString()}");
-        return task;
-    }
-
-    public Task<IEnumerable<Image>> GetAllImagesAsync()
-    {
-        var files = _fileService.GetImageFilesAsync();
-        var task = files.ContinueWith(t =>
-        {
-            return t.Result.Select(file => new Image
-            {
-                Name = file.Name,
-                Size = file.Length / 1000 / 1000
-            });
-        });
-        files.Start();
-        _logger.LogInformation($"Images retrieved: {files.Result.Count().ToString()}");
+        _logger.LogInformation($"Media retrieved: {task.Result.Count().ToString()}");
         return task;
     }
 
@@ -91,58 +48,9 @@ public class MediaService : IMediaServices
                 });
         });
         files.Start();
-        _logger.LogInformation($"Media(s) retrieved: {files.Result.Count().ToString()}");
+        _logger.LogInformation($"Media(s) retrieved: {task.Result.Count().ToString()}");
         return task;
     }
 
-    public Task<IEnumerable<Movie>> GetMovieFromNameAsync(string name)
-    {
-        var files = _fileService.GetMovieFilesAsync();
-        var task = files.ContinueWith(t =>
-        {
-            return t.Result.Where(f => f.Name.ToLowerInvariant().Contains(name.ToLowerInvariant())).Select(file =>
-                new Movie
-                {
-                    Name = file.Name,
-                    Size = file.Length / 1000 / 1000
-                });
-        });
-        files.Start();
-        _logger.LogInformation($"Movie(s) retrieved: {files.Result.Count().ToString()}");
-        return task;
-    }
-
-    public Task<IEnumerable<Audio>> GetAudioFromNameAsync(string name)
-    {
-        var files = _fileService.GetAudioFilesAsync();
-        var task = files.ContinueWith(t =>
-        {
-            return t.Result.Where(f => f.Name.ToLowerInvariant().Contains(name.ToLowerInvariant())).Select(file =>
-                new Audio
-                {
-                    Name = file.Name,
-                    Size = file.Length / 1000 / 1000
-                });
-        });
-        files.Start();
-        _logger.LogInformation($"Audio(s) retrieved: {files.Result.Count().ToString()}");
-        return task;
-    }
-
-    public Task<IEnumerable<Image>> GetImageFromNameAsync(string name)
-    {
-        var files = _fileService.GetImageFilesAsync();
-        var task = files.ContinueWith(t =>
-        {
-            return t.Result.Where(f => f.Name.ToLowerInvariant().Contains(name.ToLowerInvariant())).Select(file =>
-                new Image
-                {
-                    Name = file.Name,
-                    Size = file.Length / 1000 / 1000
-                });
-        });
-        files.Start();
-        _logger.LogInformation($"Image(s) retrieved: {files.Result.Count().ToString()}");
-        return task;
-    }
+  
 }

@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaChecker", "src\MediaCh
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaChecker.Tests.Unit", "test\MediaChecker.Tests.Unit\MediaChecker.Tests.Unit.csproj", "{AC291080-2E8B-44D2-BE65-7EC2A3B820E7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaWatcher", "src\MediaWatcher\MediaWatcher.csproj", "{AF97E1BB-233D-44BE-A778-BAEC32D77D7C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -22,9 +24,14 @@ Global
 		{AC291080-2E8B-44D2-BE65-7EC2A3B820E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC291080-2E8B-44D2-BE65-7EC2A3B820E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AC291080-2E8B-44D2-BE65-7EC2A3B820E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF97E1BB-233D-44BE-A778-BAEC32D77D7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF97E1BB-233D-44BE-A778-BAEC32D77D7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF97E1BB-233D-44BE-A778-BAEC32D77D7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF97E1BB-233D-44BE-A778-BAEC32D77D7C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{01E111C0-B59B-451C-B80D-A49209007164} = {4D2D843E-9829-4722-93F5-F2C783EC5968}
 		{AC291080-2E8B-44D2-BE65-7EC2A3B820E7} = {1E8F6AC9-0AB0-4418-9B27-C432C6450FB1}
+		{AF97E1BB-233D-44BE-A778-BAEC32D77D7C} = {4D2D843E-9829-4722-93F5-F2C783EC5968}
 	EndGlobalSection
 EndGlobal
